@@ -831,3 +831,9 @@ if [ "${XNU_SOURCE_CORECRYPTO14:-0}" = 1 ] && [ "$CRYPTO_BOOTSTRAP_MODE" = sourc
   python3 scripts/seal-source-crypto-kernel.py \
     build/xnu/ios-obj/DEVELOPMENT_ARM64_KEBAB/mach.development.kebab.unstripped
 fi
+
+# Expose the KEBAB kernel under the names the unixnu post-step still asks for.
+KOBJ="$ROOT/build/xnu/ios-obj/DEVELOPMENT_ARM64_KEBAB"
+ln -sfn "$KOBJ" "$ROOT/build/xnu/ios-obj/DEVELOPMENT_ARM64_BCM2837" || true
+ln -sfn "$KOBJ/mach.development.kebab" \
+        "$KOBJ/mach.development.bcm2837.unstripped.noctf" || true
